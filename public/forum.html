@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Community - Channels</title>
+    <link rel="stylesheet" href="forum.css">
+</head>
+<body>
+    <script>
+         const loggedEmail = sessionStorage.getItem('loggedEmail');
+        if (loggedEmail) {
+            // If logged in, display the email on top
+            const topContainer = document.createElement('div');
+            topContainer.innerHTML = `<p>Welcome, ${loggedEmail}!</p>`;
+            document.body.insertBefore(topContainer, document.body.firstChild);
+        } else {
+            // If not logged in, redirect to the login page
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <div class="container">
+        <!-- Channels List -->
+        <div class="channels-list">
+            <h2>Existing Channels</h2>
+            <ul id="channels-list">
+                <!-- Channels will be populated dynamically using JavaScript -->
+            </ul>
+        </div>
+
+        <!-- Create Channel Form -->
+        <div class="create-channel-form">
+            <h2>Create a New Channel</h2>
+            <form id="create-channel-form">
+                <label for="channel-name">Channel Name:</label>
+                <input type="text" id="channel-name" name="channel-name" required>
+
+                <label for="channel-description">Description:</label>
+                <textarea id="channel-description" name="channel-description" required></textarea>
+
+                <button type="submit">Create Channel</button>
+            </form>
+        </div>
+
+        <!-- Join Channel Form -->
+        <div class="join-channel-form">
+            <h2>Join a Channel</h2>
+            <form id="join-channel-form">
+                <label for="connection-code">Enter Connection Code:</label>
+                <input type="text" id="connection-code" name="connection-code" required>
+
+                <button type="submit">Join Channel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="forum.js" type="module"></script>
+</body>
+</html>

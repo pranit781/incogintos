@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.channels-list h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.channels-list ul {
+    list-style-type: none;
+}
+
+.channels-list li {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.channels-list li h3 {
+    margin-bottom: 5px;
+}
+
+.channels-list li p {
+    margin-bottom: 5px;
+}
+
+.channels-list li span {
+    font-weight: bold;
+}
+
+.create-channel-form h2,
+.join-channel-form h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.create-channel-form form,
+.join-channel-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-channel-form label,
+.join-channel-form label {
+    margin-bottom: 5px;
+}
+
+.create-channel-form input,
+.create-channel-form textarea,
+.join-channel-form input {
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.create-channel-form button,
+.join-channel-form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-channel-form button:hover,
+.join-channel-form button:hover {
+    background-color: #0056b3;
+}
