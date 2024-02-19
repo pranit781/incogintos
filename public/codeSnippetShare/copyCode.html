@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Snippet</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Assuming you have a separate CSS file -->
+</head>
+<body>
+    <div class="snippet-container" id="snippet-container">
+        <h1>Code Snippet</h1>
+        <div id="snippet-content">
+            <!-- Code snippet data will be populated here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const randomId = urlParams.get('id');
+
+            const snippetContainer = document.getElementById('snippet-content');
+
+            try {
+                const response = await fetch(`/data/${randomId}`);
+                const snippetData = await response.json();
+
+                const snippetHTML = `
+                    <p><strong>Code:</strong> ${snippetData.code}</p>
+                    <p><strong>Number of Visitors:</strong> ${snippetData.numVisitors}</p>
+                    <p><strong>Storage Duration:</strong> ${snippetData.storageDuration}</p>
+                    <p><strong>Created At:</strong> ${snippetData.createdAt}</p>
+                `;
+
+                snippetContainer.innerHTML = snippetHTML;
+            } catch (error) {
+                console.error('Error fetching snippet data:', error);
+                snippetContainer.innerHTML = '<p>Error fetching snippet data</p>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -7,6 +7,9 @@ const socketIo = require('socket.io');
 require('dotenv').config();
 const moment = require("moment");
 const socketRoutes = require('./routes/randomRoomSocket') 
+const codeSnippetRoutes = require('./routes/codeSnippetRoutes');
+const dataRoutes = require('./routes/getCodeSnippet');
+
 
 const Channel = require('./models/Channel');
 
@@ -43,6 +46,8 @@ const usersRouter = require('./routes/users');
 socketRoutes(io); 
 app.use('/channels', channelsRouter);
 app.use('/users', usersRouter);
+app.use('/codeSnippets', codeSnippetRoutes);
+app.use('/data', dataRoutes);
  
 
 
