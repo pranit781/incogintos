@@ -6,8 +6,7 @@ document.getElementById('registration-form').addEventListener('submit', function
     event.preventDefault(); // Prevent form submission
 
     const formData = new FormData(this); // Get form data
-
-    // Create object from form data
+ 
     const userData = {
         name: formData.get('name'),
         email: formData.get('email'),
