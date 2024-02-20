@@ -55,9 +55,9 @@ function startPrivateChat(_currentUser, _matchUser, room) {
     document.getElementById('pre-chat-section').style.display = "none";
     document.getElementById('chat-section').style.display = "block";
     if(matchUser.gender === 'f') {
-        document.getElementById('match-name').innerHTML = `You are chatting with <span class="bolder-pink-font mx-2"><i class="fa fa-venus"></i> ${matchUser.username}</span>`;
+        document.getElementById('match-name').innerHTML = `You are chatting with <span class="bolder-pink-font mx-2">  ${matchUser.username}</span>`;
     } else {
-        document.getElementById('match-name').innerHTML = `You are chatting with <span class="bolder-blue-font mx-2"><i class="fa fa-mars"></i> ${matchUser.username}</span>`;
+        document.getElementById('match-name').innerHTML = `You are chatting with <span class="bolder-blue-font mx-2"> ${matchUser.username}</span>`;
     }
 
 }
@@ -101,3 +101,6 @@ function addMessageToUI(_user, socketId, message) {
 
     document.getElementById('chat-box').value = '';
 }
+document.getElementById("reloadButton").addEventListener("click", function() {
+    location.reload();
+});
