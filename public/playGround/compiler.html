@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Compiler</title>
+</head>
+<body>
+    <h1>Online Compiler</h1>
+    <label for="language">Select a language:</label>
+    <select id="language">
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <!-- Add options for other languages as needed -->
+    </select>
+    <br>
+    <textarea id="code" rows="10" cols="50" placeholder="Enter your code here..."></textarea>
+    <br>
+    <div id="inputSection" style="display: none;">
+        <label for="input">Enter input (if required):</label>
+        <textarea id="input" rows="3" cols="50"></textarea>
+    </div>
+    <br>
+    <button onclick="compile()">Compile</button>
+    <div id="output"></div>
+
+    <script>
+        function compile() {
+            const code = document.getElementById('code').value;
+            const language = document.getElementById('language').value;
+            const input = document.getElementById('input').value;
+            
+            fetch('/compile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code, language, input })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.output;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Show input section if the selected language is Python
+        document.getElementById('language').addEventListener('change', function() {
+            const inputSection = document.getElementById('inputSection');
+            if (this.value === 'python') {
+                inputSection.style.display = 'block';
+            } else {
+                inputSection.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

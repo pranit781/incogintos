@@ -53,6 +53,7 @@ app.use('/channels', channelsRouter);
 app.use('/users', usersRouter);
 app.use('/codeSnippets', codeSnippetRoutes);
 app.use('/data', dataRoutes);
+app.use('/compile', require('./routes/compile'));
  
 
 
