@@ -1,7 +1,7 @@
 // const backendURI = require("../config.js");
 // import backendURI from "../config.js";
 
-const backendURI = 'http://localhost:3000';
+// const backendURI = 'https://www.incognitos.online:3000';
 document.getElementById('preview-btn').addEventListener('click', function () {
   var codeInput = document.getElementById('code-input').value;
   var previewArea = document.getElementById('preview-area');
@@ -83,7 +83,8 @@ document.getElementById('snippet-form').addEventListener('submit', async functio
 
   try {
     
-    const response = await fetch(`${backendURI}/codeSnippets/save`, {
+    // const response = await fetch(`${backendURI}/codeSnippets/save`, {
+      const response = await fetch('/codeSnippets/save', {
 
       method: 'POST',
       headers: {
@@ -99,7 +100,8 @@ document.getElementById('snippet-form').addEventListener('submit', async functio
     const responseData = await response.json();
     const randomId = responseData.randomId;
     
-    const link = `${backendURI}/data/` + randomId;
+    // const link = `${backendURI}/data/` + randomId;
+    const link = window.location.origin + '/data/' + randomId;
 
 
     document.getElementById('dataLink').href = link;
