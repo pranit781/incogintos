@@ -54,8 +54,9 @@
         overflow-x: auto;
       }
 
-      .copy-btn {
-        margin-top: 10px;
+      .copy-btn, .button {
+        text-decoration: none;
+        margin : 10px;
         padding: 8px 16px;
         background-color: #007bff;
         color: #fff;
@@ -74,53 +75,66 @@
       }
     </style>
   </head>
-  <body><div class="container">
-    <h1>Dashboard</h1>
-    <div class="parentContent">
-      <div class="content">
-        <h3>Random ID</h3>
-        
-<p>  <%= snippet.randomId %></p>
-      </div>
-      <div class="content">
-        <h3>Created At</h3>
-        <p> <%= snippet.createdAt %></p> <!-- Placeholder for createdAt -->
-      </div>
-    </div>
-    <div class="content">
-      <h3>Code</h3>
-      <div>
-        <button class="copy-btn" onclick="copyCode()">Copy</button>
-        <pre class="code-snippet"><%= snippet.code %></pre> <!-- Placeholder for code -->
-      </div>
-    </div>
-    <div class="parentContent">
-      <div class="content">
-        <h3>Number of Visitors</h3>
-        <p> <%= snippet.numVisitors %></p> <!-- Placeholder for numVisitors -->
-      </div>
-      <div class="content">
-        <h3>Storage Duration</h3>
-        <p><%= snippet.storageDuration %></p> <!-- Placeholder for storageDuration -->
- 
-      </div>
-    </div>
-  </div>
-  
-  <script>
-    function copyCode() {
-      const codeSnippet = document.querySelector(".code-snippet").innerText;
-      const tempTextArea = document.createElement("textarea");
-      tempTextArea.value = codeSnippet;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
-      document.querySelector(".copy-btn").innerText = "Copied";
-      setTimeout(function () {
-        document.querySelector(".copy-btn").innerText = "Copy";
-      }, 2000); // Change back to 'Copy' after 2 seconds
-    }
-  </script>
-  
+  <body>
+    <div class="container">
+      <h1>Dashboard</h1>
+      
+      <div class="parentContent">
+        <div class="content">
+          <h3>ID</h3>
 
+          <p><%= snippet.randomId %></p>
+        </div>
+        <div class="content" style="display: flex;">
+          <div>
+            <h3>visitor count</h3>
+          <p><%= snippet.visitCount %></p>
+          </div>
+          <div>
+            <h3>visitor count Limit</h3>
+          <p><%= snippet.numVisitors %></p>
+          </div>
+          <!-- Placeholder for numVisitors -->
+        </div>
+        <div class="content">
+          <h3>Storage Duration</h3>
+          <p><%= snippet.storageDuration %> Hr</p>
+          <!-- Placeholder for storageDuration -->
+        </div>
+        <div class="content">
+          <h3>Created At</h3>
+          <p><%= snippet.createdAt %></p>
+          <!-- Placeholder for createdAt -->
+        </div>
+      </div>
+      <div class="content">
+        <h3>Code</h3>
+        <div>
+          <div style="display: flex;">
+            <button class="copy-btn" onclick="copyCode()">Copy</button>
+          <a class="button" href="/codeSnippetShare/shareCodeSnippet.html">Add new code</a>
+          </div>
+          <pre class="code-snippet"><%= snippet.code %></pre>
+          <!-- Placeholder for code -->
+        </div>
+      </div>
+      <div class="parentContent"></div>
+    </div>
+
+    <script>
+      function copyCode() {
+        const codeSnippet = document.querySelector(".code-snippet").innerText;
+        const tempTextArea = document.createElement("textarea");
+        tempTextArea.value = codeSnippet;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempTextArea);
+        document.querySelector(".copy-btn").innerText = "Copied";
+        setTimeout(function () {
+          document.querySelector(".copy-btn").innerText = "Copy";
+        }, 2000); // Change back to 'Copy' after 2 seconds
+      }
+    </script>
+  </body>
+</html>

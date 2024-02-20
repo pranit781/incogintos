@@ -108,32 +108,19 @@ document.getElementById('snippet-form').addEventListener('submit', async functio
     document.getElementById('dataLink').textContent = link;
 
 
-    document.getElementById('dataId').textContent = 'ID: ' + randomId;
-
-    // Make the pop container visible
-    document.querySelector('.pop-container').style.display = 'block';
-
-    // Copy link button functionality
-    document.getElementById('copyPop').addEventListener('click', function () {
-      // Create a temporary input element
+    document.getElementById('dataId').textContent = 'ID: ' + randomId; 
+    document.querySelector('.pop-container').style.display = 'block'; 
+    document.getElementById('copyPop').addEventListener('click', function () { 
       const tempInput = document.createElement('input');
       tempInput.value = link;
-      document.body.appendChild(tempInput);
-
-      // Select the link text
+      document.body.appendChild(tempInput); 
       tempInput.select();
-      tempInput.setSelectionRange(0, 99999); // For mobile devices
-
-      // Copy the link text
-      document.execCommand('copy');
-
-      // Remove the temporary input element
+      tempInput.setSelectionRange(0, 99999);  
+ 
+      document.execCommand('copy'); 
       document.body.removeChild(tempInput);
-    });
-
-    // Close button functionality
-    document.getElementById('closePop').addEventListener('click', function () {
-      // Refresh the page
+    }); 
+    document.getElementById('closePop').addEventListener('click', function () { 
       window.location.reload();
     });
 
