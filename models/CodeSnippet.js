@@ -26,7 +26,7 @@ const codeSnippetSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    }, visitCount: { type: Number, default: 0 }
 });
 
 const CodeSnippet = mongoose.model('CodeSnippet', codeSnippetSchema);
