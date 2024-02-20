@@ -13,8 +13,7 @@
             const topContainer = document.createElement('div');
             topContainer.innerHTML = `<p>Welcome, ${loggedEmail}!</p>`;
             document.body.insertBefore(topContainer, document.body.firstChild);
-        } else {
-            // If not logged in, redirect to the login page
+        } else { 
             window.location.href = 'login.html';
         }
     </script>
