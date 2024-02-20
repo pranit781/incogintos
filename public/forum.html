@@ -9,8 +9,7 @@
 <body>
     <script>
          const loggedEmail = sessionStorage.getItem('loggedEmail');
-        if (loggedEmail) {
-            // If logged in, display the email on top
+        if (loggedEmail) { 
             const topContainer = document.createElement('div');
             topContainer.innerHTML = `<p>Welcome, ${loggedEmail}!</p>`;
             document.body.insertBefore(topContainer, document.body.firstChild);
