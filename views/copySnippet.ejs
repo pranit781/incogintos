@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        font-size: 24px;
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .content {
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 16px;
+        color: #666;
+        margin: 0;
+      }
+
+      .code-snippet {
+        white-space: pre-wrap;
+        font-family: "Courier New", Courier, monospace;
+        background-color: #eee;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+
+      .copy-btn {
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .copy-btn:hover {
+        background-color: #0056b3;
+      }
+      .parentContent {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body><div class="container">
+    <h1>Dashboard</h1>
+    <div class="parentContent">
+      <div class="content">
+        <h3>Random ID</h3>
+        
+<p>  <%= snippet.randomId %></p>
+      </div>
+      <div class="content">
+        <h3>Created At</h3>
+        <p> <%= snippet.createdAt %></p> <!-- Placeholder for createdAt -->
+      </div>
+    </div>
+    <div class="content">
+      <h3>Code</h3>
+      <div>
+        <button class="copy-btn" onclick="copyCode()">Copy</button>
+        <pre class="code-snippet"><%= snippet.code %></pre> <!-- Placeholder for code -->
+      </div>
+    </div>
+    <div class="parentContent">
+      <div class="content">
+        <h3>Number of Visitors</h3>
+        <p> <%= snippet.numVisitors %></p> <!-- Placeholder for numVisitors -->
+      </div>
+      <div class="content">
+        <h3>Storage Duration</h3>
+        <p><%= snippet.storageDuration %></p> <!-- Placeholder for storageDuration -->
+ 
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function copyCode() {
+      const codeSnippet = document.querySelector(".code-snippet").innerText;
+      const tempTextArea = document.createElement("textarea");
+      tempTextArea.value = codeSnippet;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempTextArea);
+      document.querySelector(".copy-btn").innerText = "Copied";
+      setTimeout(function () {
+        document.querySelector(".copy-btn").innerText = "Copy";
+      }, 2000); // Change back to 'Copy' after 2 seconds
+    }
+  </script>
+  
+

@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const http = require('http');
+const path = require('path');
+
 const socketIo = require('socket.io');
 require('dotenv').config();
 const moment = require("moment");
@@ -34,13 +36,16 @@ mongoose.connect(MONGODB_URI, {
     console.error('Error connecting to MongoDB:', err.message);
 });
 
- 
-app.use(express.static('./public'));
-app.use(express.static('node_modules'));
-app.use((req, res, next) => {
-    res.locals.moment = moment;
-    next();
-}); 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from 'node_modules' 
+
+// Serve static files from 'node_modules'
+app.use('/scripts', express.static(path.join(__dirname, 'node_modules')));
+
 const channelsRouter = require('./routes/channels');
 const usersRouter = require('./routes/users');
 socketRoutes(io); 

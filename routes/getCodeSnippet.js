@@ -7,13 +7,22 @@ router.get('/:randomId', async (req, res) => {
         const snippet = await CodeSnippet.findOne({ randomId: req.params.randomId });
 
         if (!snippet) {
-            return res.status(404).json({ error: 'Code snippet not found' });
+            return res.status(404).send('Code snippet not found');
         }
 
-        res.json(snippet);
+        const formattedSnippet = {
+            id: snippet._id,
+            code: snippet.code,
+            numVisitors: snippet.numVisitors,
+            storageDuration: snippet.storageDuration,
+            randomId: snippet.randomId,
+            createdAt: snippet.createdAt.toISOString() // Convert to ISO string
+        };
+
+        res.render('copySnippet', { snippet: formattedSnippet });
     } catch (err) {
         console.error('Error retrieving code snippet:', err);
-        res.status(500).json({ error: 'An error occurred while retrieving the code snippet' });
+        res.status(500).send('An error occurred while retrieving the code snippet');
     }
 });
 
