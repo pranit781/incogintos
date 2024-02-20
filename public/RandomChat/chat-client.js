@@ -89,14 +89,20 @@ function sendMessage() {
 }
 
 function addMessageToUI(_user, socketId, message) {
-    let badgeStyle = 'badge bg-info text-dark chat-message text-wrap';
+    const currentTime = new Date();
+ 
+const hours = currentTime.getHours();
+const minutes = currentTime.getMinutes();
+const seconds = currentTime.getSeconds(); 
+const timestamp = `${hours}:${minutes}:${seconds}`;
+    let badgeStyle = 'msgDiv   text-dark chat-message text-wrap';
     let floatStyle = 'float-start';
     const _username = _user.username === chatUsername.value ? 'You':  _user.username;
     if (socketId !== socket.id) {
-        badgeStyle = 'badge bg-warning text-dark chat-message text-wrap';
+        badgeStyle = 'msgDiv  text-dark chat-message text-wrap';
         floatStyle = 'float-end';
     }
-    const msg = `<div class="row mt-2"><div class="col-12"><b class="${floatStyle}"><small>${_username}</small></b><br\><span class="${badgeStyle} ${floatStyle}"><b>${message}</b></span></div></div>`;
+    const msg = `<div class="row mt-2"><div class="col-12"><b class="${floatStyle}"><small>${_username}</small></b><br\><span class="${badgeStyle} ${floatStyle}"><b>${message}</b> <br /> <span class="time"> ${timestamp} </span> </span></div></div>`;
     document.getElementById('private-messages').innerHTML += msg;
 
     document.getElementById('chat-box').value = '';

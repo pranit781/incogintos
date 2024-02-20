@@ -77,7 +77,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>Dashboard</h1>
+      <h1>Your Code</h1>
       
       <div class="parentContent">
         <div class="content">
@@ -85,22 +85,7 @@
 
           <p><%= snippet.randomId %></p>
         </div>
-        <div class="content" style="display: flex;">
-          <div>
-            <h3>visitor count</h3>
-          <p><%= snippet.visitCount %></p>
-          </div>
-          <div>
-            <h3>visitor count Limit</h3>
-          <p><%= snippet.numVisitors %></p>
-          </div>
-          <!-- Placeholder for numVisitors -->
-        </div>
-        <div class="content">
-          <h3>Storage Duration</h3>
-          <p><%= snippet.storageDuration %> Hr</p>
-          <!-- Placeholder for storageDuration -->
-        </div>
+       
         <div class="content">
           <h3>Created At</h3>
           <p><%= snippet.createdAt %></p>
@@ -118,7 +103,26 @@
           <!-- Placeholder for code -->
         </div>
       </div>
-      <div class="parentContent"></div>
+      <div class="parentContent">
+        <div class="content" style="    display: flex;
+        justify-content: space-around;
+        width: 73%;">
+          <div>
+            <h3>visitor count</h3>
+          <p><%= snippet.visitCount %></p>
+          </div>
+          <div>
+            <h3>visitor count Limit</h3>
+          <p><%= snippet.numVisitors %></p>
+          </div>
+          <!-- Placeholder for numVisitors -->
+        </div>
+        <div class="content">
+          <h3>Storage Duration</h3>
+          <p><%= snippet.storageDuration %> Hr</p>
+          <!-- Placeholder for storageDuration -->
+        </div>
+      </div>
     </div>
 
     <script>

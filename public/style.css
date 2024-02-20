@@ -36,7 +36,7 @@ nav ul li a {
     text-decoration: none;
 }
 
-main {
+.homeContainer {
     padding: 20px;
     display: flex;
     flex-wrap: wrap;

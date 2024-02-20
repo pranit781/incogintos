@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Developer Community Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="../config.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div class="logo">
-            <h1>Developer Community</h1>
-            <p>Logged Email: <span id="logged-email"></span></p>
-
-        </div>
-        <nav>
-            <ul>
-                <!-- <li><a href="#forums">Forums</a></li>  -->
-                <li><a href="codeSnippetShare/shareCodeSnippet.html">Code Snippets</a></li>
-                 <li><a href="RandomChat/rendomChat.html">Chat</a></li>
-                <li><a href="playGround/ide.html">Code Playground</a></li>  
-               <!--  <li><a href="#pair-programming">Pair Programming</a></li> -->
-            </ul>
-        </nav>
+      <div class="logo">
+        <h1>Developer Community</h1>
+        <p>Logged Email: <span id="logged-email"></span></p>
+      </div>
+      <nav>
+        <ul>
+          <!-- <li><a href="#forums">Forums</a></li>  -->
+          <li>
+            <a href="codeSnippetShare/shareCodeSnippet.html">Code Snippets</a>
+          </li>
+          <li><a href="RandomChat/rendomChat.html">Chat</a></li>
+          <li><a href="playGround/ide.html">Code Playground</a></li>
+          <!--  <li><a href="#pair-programming">Pair Programming</a></li> -->
+        </ul>
+      </nav>
     </header>
     <main>
+      <div class="homeContainer">
         <!-- <section id="forums" class="dashboard-section">
             <div class="card homecard">
                 <h2>Forums/Community Boards</h2>
@@ -34,22 +36,27 @@
             </div>
         </section> -->
         <section id="forums" class="dashboard-section">
-            <div class="card homecard">
-                <h2>Random Chat</h2>
-                <p>Engage in discussions, share knowledge, and collaborate with other developers.</p>
-                <a href="RandomChat/rendomChat.html">Go to Meet Rsndom People</a> 
-            </div>
+          <div class="card homecard">
+            <h2>Random Chat</h2>
+            <p>
+              Engage in discussions, share knowledge, and collaborate with other
+              developers.
+            </p>
+            <a href="RandomChat/rendomChat.html">Go to Meet Rsndom People</a>
+          </div>
         </section>
 
- 
         <section id="code-snippets" class="dashboard-section">
-            <div class="card homecard">
-                <h2>Code Snippet Sharing</h2>
-                <p>Discover and share code snippets, scripts, and libraries with the community.</p>
-                <a href="codeSnippetShare/shareCodeSnippet.html">Send Snippets</a>
-            </div>
+          <div class="card homecard">
+            <h2>Code Snippet Sharing</h2>
+            <p>
+              Discover and share code snippets, scripts, and libraries with the
+              community.
+            </p>
+            <a href="codeSnippetShare/shareCodeSnippet.html">Send Snippets</a>
+          </div>
         </section>
-    <!--    <section id="chat" class="dashboard-section">
+        <!--    <section id="chat" class="dashboard-section">
             <div class="card homecard">
                 <h2>Real-time Chat or Messaging</h2>
                 <p>Connect with other developers in real-time through chat rooms and direct messaging.</p>
@@ -57,30 +64,33 @@
             </div>
         </section> -->
         <section id="code-playground" class="dashboard-section">
-            <div class="card homecard">
-                <h2>Code Playground</h2>
-                <p>Experiment with code, test algorithms, and prototype ideas in an interactive code editor.</p>
-                <a href="/playGround/ide.html">Start Coding</a>
-            </div>
+          <div class="card homecard">
+            <h2>Code Playground</h2>
+            <p>
+              Experiment with code, test algorithms, and prototype ideas in an
+              interactive code editor.
+            </p>
+            <a href="/playGround/ide.html">Start Coding</a>
+          </div>
         </section>
-       <!--  <section id="pair-programming" class="dashboard-section">
+        <!--  <section id="pair-programming" class="dashboard-section">
             <div class="card homecard">
                 <h2>Remote Pair Programming</h2>
                 <p>Collaborate with other developers in real-time on coding projects, share screens, and debug together.</p>
                 <a href="#pair-programming">Start Pairing</a>
             </div>
         </section> -->
+      </div>
     </main>
     <footer>
-        <p>&copy; 2024 Developer Community. All rights reserved.</p>
+      <p>&copy; 2024 Developer Community. All rights reserved.</p>
     </footer>
 
     <script>
-        // Retrieve logged email from session storage
-        const loggedEmail = sessionStorage.getItem('loggedEmail');
-        // Display logged email in the page
-        document.getElementById('logged-email').textContent = loggedEmail;
+      // Retrieve logged email from session storage
+      const loggedEmail = sessionStorage.getItem("loggedEmail");
+      // Display logged email in the page
+      document.getElementById("logged-email").textContent = loggedEmail;
     </script>
-
-</body>
+  </body>
 </html>
