@@ -16,8 +16,8 @@
    }
    .msgDiv{
     background: white;
-    padding: 7px;
-    border: 1px solid black;
+    padding: 7px; 
+    min-width: 150px;
     border-radius: 8px;
     font-size: .75em;
   }
@@ -56,16 +56,20 @@
       </div>
      
     </nav>
-    <button type="button" class="btn btn-primary">
-      Messages <span class="badge badge-light" id="online-users">0</span>
-    </button>
+    <div class="control-panel" style="display: flex; justify-content: space-between;"> 
+      <h4>Meet Random People</h4>
+      <button type="button" class="btn btn-primary">
+        Messages <span class="badge badge-light" id="online-users">0</span>
+      </button>
+    </div>
+    
  
     <div
       class="container top-margin-main-content"
       id="chat-section"
       style="display: none"
     >
-      <div class="row mt-2">
+      <div class="mt-2">
         <span id="match-name"></span>
         <div class="col-8">
           <div class="card border-3">

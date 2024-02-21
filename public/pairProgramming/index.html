@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Remote Pair Programming</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../style.css"> 
+    <script src="https://kit.fontawesome.com/6510466b6c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand mb-0 h1" href="/">Incognitos Community</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" style="flex-direction: row-reverse;" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Share Snippet <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Chat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Coding Playground</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Chat Channel</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Pair Programming</a>
+              </li>
+          </ul> 
+          
+        </div>
+       
+      </nav> 
+      <div class="control-panel"> 
+        <h4>Remote Pair Programming</h4>
+         
+      </div>
+
+        <div class="main">
+            <div class="create-join">
+                <div class="text"><div class="head">Instant video meeting with just one click</div>
+                <div class="subtext">No SignUp. No payment.</div>
+                </div>
+                <button id="createroom" class="createroom-butt unselectable">New Meeting</button><br>
+                <input type="text" name="room" spellcheck="false" placeholder="Enter a Code" id="roomcode" class="roomcode"><br>
+                <div class="joinroom unselectable" id="joinroom">Join Meeting</div>
+            </div>
+            <div class="video-cont">
+                <video class="video-self" autoplay muted playsinline></video>
+                <div class="settings">
+                    <div class="device" id="mic"><i class="fas fa-microphone"></i></div>
+                    <div class="device" id="webcam"><i class="fas fa-video"></i></div>
+                </div>
+            </div>
+        </div>
+        <footer style="background-color: #343a40!important;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+        width: 100%; 
+        position: fixed;
+        bottom: 0;">
+            <p>&copy; 2024 Developer Community. All rights reserved.</p>
+          </footer>
+        
+          <script language="JavaScript">
+            window.onload=function(){
+              var mobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));
+              if(mobile) {
+                alert("Visit this on a Computer/laptop for BETTER VIEW");
+              }
+            }
+          </script>
+ 
+    <script src="js/landing.js"></script>
+</body>
+
+</html>

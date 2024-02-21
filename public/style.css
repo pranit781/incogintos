@@ -88,3 +88,8 @@ footer {
     padding: 20px; 
     width: 100%;
 }
+.control-panel{
+    background: lightgray; 
+    padding: 4px;
+    font-family: sans-serif;
+}
