@@ -15,7 +15,8 @@
     <script src="https://kit.fontawesome.com/6510466b6c.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Trocchi&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Trocchi&display=swap" rel="stylesheet">
+     
     <script>
         const params = new URLSearchParams(location.search);
         if (!params.get("room")) location.href = "/pairProgramming/room.html";
@@ -33,8 +34,16 @@
     </div>
     <div class="container-room">
         <div class="left-cont">
-
-            <div class="video-cont-single" id="vcont">
+           <style>
+            @media (max-width: 400px) {
+                .video-cont-single{
+display: inline-table;
+                }
+                
+                
+            }
+           </style>
+            <div class="video-cont-single" id="vcont"  >
                 <div class="video-box">
                     <video class="video-frame" id="vd1" autoplay playsinline>
                     </video>
@@ -119,7 +128,7 @@
 
 
                 </div>
-                <div class="copycode-cont">
+                <div class="copycode-cont" style="position: fixed;">
                     <div class="roomcode"></div>
                     <i class="copycode-button fa fa-copy" onclick="CopyClassText()"></i>
                     <div class="whatsapp-code tooltip" onclick="shareCodeOnWp()">

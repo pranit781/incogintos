@@ -1103,4 +1103,14 @@ navbar .logo {
 	text-align: center;
 }
 
+@media (max-width:768px) {
+  .video-cont{
+    display: table-row;
+  }
+  
+.container-room .left-cont .video-cont {
+  display: table-row;
+}
+}
+
 /*# sourceMappingURL=style.css.map */
