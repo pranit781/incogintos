@@ -9,10 +9,10 @@ socket.on('connect', () => {
     if (chatForm) {
         chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            if( $('#gender-m').is(':checked') ){
+            if ($('#gender-m').is(':checked')) {
                 userGender = 'm';
             }
-            else{
+            else {
                 userGender = 'f';
             }
             if (!chatUsername.value || !userGender) {
@@ -45,19 +45,20 @@ socket.on('connect', () => {
         });
     } //chatform
 }); //socket
-
 function startPrivateChat(_currentUser, _matchUser, room) {
     privateRoom = room;
     let matchUser = _matchUser;
-    if(chatUsername.value !== _currentUser.username) {
+    if (chatUsername.value !== _currentUser.username) {
         matchUser = _currentUser;
     }
     document.getElementById('pre-chat-section').style.display = "none";
-    document.getElementById('chat-section').style.display = "block";
-    if(matchUser.gender === 'f') {
-        document.getElementById('match-name').innerHTML = `You are chatting with <span class="bolder-pink-font mx-2">  ${matchUser.username}</span>`;
+    document.getElementById('chat-section').style.visibility = "visible"; 
+    if (matchUser.gender === 'f') {
+        document.getElementById('match-name').innerHTML = `<h4">  ${matchUser.username}</h4> <br /><span>Online</span> `;
+
+ 
     } else {
-        document.getElementById('match-name').innerHTML = `You are chatting with <span class="bolder-blue-font mx-2"> ${matchUser.username}</span>`;
+        document.getElementById('match-name').innerHTML = `<h4">  ${matchUser.username}</h4> <br /><span>Online</span> `;
     }
 
 }
@@ -82,31 +83,52 @@ function showMessage(message, isError) {
 
 function sendMessage() {
     const message = document.getElementById('chat-box').value;
+    hideEmojiPanel();
     console.log(message);
-    if(message && message.trim().length > 0) {
+    if (message && message.trim().length > 0) {
         socket.emit('client-message', user, privateRoom, message);
     }
+}
+function hideEmojiPanel() {
+    const emojiPanel = document.getElementById('emoji-panel');
+    emojiPanel.classList.remove('show');
 }
 
 function addMessageToUI(_user, socketId, message) {
     const currentTime = new Date();
- 
-const hours = currentTime.getHours();
-const minutes = currentTime.getMinutes();
-const seconds = currentTime.getSeconds(); 
-const timestamp = `${hours}:${minutes}:${seconds}`;
+
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes();
+    const seconds = currentTime.getSeconds();
+    const timestamp = `${hours}:${minutes}:${seconds}`;
     let badgeStyle = 'msgDiv   text-dark chat-message text-wrap';
-    let floatStyle = 'float-start';
-    const _username = _user.username === chatUsername.value ? 'You':  _user.username;
+    let floatStyle = 'message-box my-message';
+    const _username = _user.username === chatUsername.value ? 'You' : _user.username;
     if (socketId !== socket.id) {
         badgeStyle = 'msgDiv  text-dark chat-message text-wrap';
-        floatStyle = 'float-end';
+        floatStyle = 'message-box friend-message';
     }
-    const msg = `<div class="row mt-2"><div class="col-12"><b class="${floatStyle}"><small>${_username}</small></b><br\><span class="${badgeStyle} ${floatStyle}"><b>${message}</b> <br /> <span class="time"> ${timestamp} </span> </span></div></div>`;
+    const msg = `
+<div class="row mt-2">
+    <div class="${floatStyle} message-box">  
+        <p>${message}<br />
+            <span>${timestamp}</span>
+        </p>
+    </div>
+</div>`;
+
+
+
     document.getElementById('private-messages').innerHTML += msg;
 
     document.getElementById('chat-box').value = '';
 }
-document.getElementById("reloadButton").addEventListener("click", function() {
-    location.reload();
+document.getElementById("reloadButton").addEventListener("click", function () { 
+    socket.emit('find-new-match'); 
+    document.getElementById('private-messages').innerHTML = ''; 
+    document.getElementById('chat-section').style.visibility = "hidden";
+    document.getElementById('pre-chat-section').style.display = "block"; 
+    document.getElementById('form-row').style.display = "block";
+    document.getElementById('finding-match-row').style.display = "none";
 });
+ 

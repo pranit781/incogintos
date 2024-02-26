@@ -13,6 +13,25 @@
    
   </head>
   <body>
+    <div id="disclaimer-overlay">
+      <div id="disclaimer-box">
+        <h2>Disclaimer</h2>
+        <p>
+          Welcome to [Website Name]. Before proceeding, please read the following disclaimer carefully:
+          <br>
+          1. Information Purposes Only: The content provided on this website is for informational purposes only. It is not intended to be a substitute for professional advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
+          <br>
+          2. Accuracy of Information: We strive to provide accurate and up-to-date information; however, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose. Any reliance you place on such information is therefore strictly at your own risk.
+          <br>
+          3. No Endorsement: Any mention of specific products, services, or organizations within the content of this website does not imply endorsement by us unless explicitly stated.
+          <br>
+          4. Limitation of Liability: In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.
+          <br>
+          By accessing and using this website, you agree to these terms and conditions. If you do not agree with any part of this disclaimer, you must not use this website.
+        </p>
+        <button id="agree-btn">I Agree</button>
+      </div>
+    </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand mb-0 h1" href="/">Incognitos Community</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +81,7 @@
               Engage in discussions, share knowledge, and collaborate with other
               developers.
             </p>
-            <a href="RandomChat/rendomChat.html">Go to Meet Rsndom People</a>
+            <a href="RandomChat">Go to Meet Rsndom People</a>
           </div>
         </section>
 
@@ -111,6 +130,19 @@
       const loggedEmail = sessionStorage.getItem("loggedEmail");
       // Display logged email in the page
       document.getElementById("logged-email").textContent = loggedEmail;
+    </script>
+    <script>
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var disclaimerOverlay = document.getElementById("disclaimer-overlay");
+  var agreeBtn = document.getElementById("agree-btn"); 
+
+  agreeBtn.addEventListener("click", function() {
+    disclaimerOverlay.style.display = "none"; 
+  });
+});
+
     </script>
   </body>
 </html>

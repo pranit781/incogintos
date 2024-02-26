@@ -5,11 +5,11 @@ const sockets = [];
 module.exports = function (io){
     
 io.on('connection', (socket) => {
-    io.emit('online-users', {description: onlineUsers.length + ' users online'})
+    io.emit('online-users', {description: onlineUsers.length })
     socket.on('user-joined', (user) => {
         onlineUsers.push(user);
         sockets.push(socket);
-        io.emit('online-users', {description: onlineUsers.length + ' users online'})
+        io.emit('online-users', {description: onlineUsers.length })
         socket.emit('update-message', user, `'${user.username}' you have joined the chat`);
     });
     socket.on('find-a-match', (currentUser) => {
@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
     });
     socket.on('disconnect', (user) => {
         onlineUsers.splice([onlineUsers.indexOf(onlineUsers.find(user => user.id === user.id))], 1);
-        io.emit('online-users', {description: onlineUsers.length + ' users online'})
+        io.emit('online-users', {description: onlineUsers.length})
         sockets.splice(sockets.indexOf(sockets.find(s => s.id === socket.id)), 1);
     });
 });
