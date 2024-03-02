@@ -15,9 +15,9 @@ router.get('/',async (req, res) => {
 });
 router.post('/', async (req, res) => {
     try {
-        const { name, description, adminEmail } = req.body; // Extract adminEmail from the request body
-        const connectionCode = generateConnectionCode(); // Function to generate a unique connection code
-        const channel = new Channel({ name, description, connectionCode, adminEmail }); // Include adminEmail in the channel data
+        const { name, description, adminEmail } = req.body;  
+        const connectionCode = generateConnectionCode();  
+        const channel = new Channel({ name, description, connectionCode, adminEmail });  
         await channel.save();
         res.status(201).json(channel);
     } catch (error) {
@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
 router.get('/createdBy/:adminEmail', async (req, res) => {
     try {
         const { adminEmail } = req.params;
-        const channels = await Channel.find({ adminEmail }); // Find channels with matching adminEmail
+        const channels = await Channel.find({ adminEmail });  
         res.json(channels);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -36,14 +36,15 @@ router.get('/createdBy/:adminEmail', async (req, res) => {
 });
 
 
-router.post('/join', (req, res) => {
-    // Handle POST request for /channels/join
+router.post('/join', (req, res) => { 
+
+
 });
 
 
 function generateConnectionCode(length) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const codeLength = length || 8; // Default length is 8 characters
+    const codeLength = length || 8; 
     let code = '';
 
     for (let i = 0; i < codeLength; i++) {
