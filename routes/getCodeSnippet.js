@@ -9,27 +9,20 @@ router.get('/:randomId', async (req, res) => {
         if (!snippet) {
             return res.status(404).send('Code snippet not found');
         }
-
-        // Increment the visitCount field by 1
+ 
         snippet.visitCount += 1;
-        await snippet.save(); // Save the updated snippet
-
-        // Check if numVisitors is greater than visitCount
+        await snippet.save(); 
+        
         if (snippet.numVisitors < snippet.visitCount) {
-            // Delete the document
+            
             await CodeSnippet.deleteOne({ _id: snippet._id });
             return res.status(404).send('Code snippet deleted because numVisitors exceeded visitCount');
-        }
-
-        // Calculate storage duration in milliseconds
-        const storageDurationMs = snippet.storageDuration * 3600000; // 1 hour = 3600000 milliseconds
+        } 
+        const storageDurationMs = snippet.storageDuration * 3600000;  
         const currentTime = new Date();
         const creationTime = snippet.createdAt;
         const elapsedTime = currentTime - creationTime;
-
-        // Check if the elapsed time exceeds the storage duration
-        if (elapsedTime > storageDurationMs) {
-            // Delete the document
+         if (elapsedTime > storageDurationMs) { 
             await CodeSnippet.deleteOne({ _id: snippet._id });
             return res.status(404).send('Code snippet deleted because storage duration exceeded');
         }
@@ -40,9 +33,9 @@ router.get('/:randomId', async (req, res) => {
             numVisitors: snippet.numVisitors,
             storageDuration: snippet.storageDuration,
             randomId: snippet.randomId,
-            createdAt: snippet.createdAt.toISOString(), // Convert to ISO string
-            visitCount: snippet.visitCount // Include visitCount in the response
-        };
+            createdAt: snippet.createdAt.toISOString(),  
+            visitCount: snippet.visitCount  
+                };
 
         res.render('copySnippet', { snippet: formattedSnippet });
     } catch (err) {
