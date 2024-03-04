@@ -3,9 +3,8 @@ import backendURI from "./config.js";
 
 
 document.getElementById('registration-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
-
-    const formData = new FormData(this); // Get form data
+    event.preventDefault();  
+    const formData = new FormData(this);  
  
     const userData = {
         name: formData.get('name'),
@@ -13,9 +12,8 @@ document.getElementById('registration-form').addEventListener('submit', function
         occupationEducation: formData.get('occupation-education'),
         password: formData.get('password')
     };
-
-    // Send form data to backend
-    fetch(`${backendURI}/users/register`, { // Use backend URI
+ 
+    fetch(`${backendURI}/users/register`, { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -26,18 +24,18 @@ document.getElementById('registration-form').addEventListener('submit', function
         if (!response.ok) {
             throw new Error('Registration failed');
         }
-        // return response.json();
+      
     })
     .then(data => {
-        // Handle successful registration
+        
         console.log('Registration successful');
         alert("register success")
         window.location('login.html')
-        // Redirect or show success message
+        
     })
     .catch(error => {
-        // Handle registration error
+        
         console.error('Registration error:', error.message);
-        // Show error message to the user
+         
     });
 });
