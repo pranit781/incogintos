@@ -2,6 +2,7 @@
 // import backendURI from "../config.js";
 
 // const backendURI = 'https://www.incognitos.online:3000';
+
 document.getElementById('preview-btn').addEventListener('click', function () {
   var codeInput = document.getElementById('code-input').value;
   var previewArea = document.getElementById('preview-area');
