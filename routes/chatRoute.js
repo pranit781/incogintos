@@ -14,12 +14,12 @@ module.exports = function(server) {
 
   // WebSocket connection
   io.on('connection', (socket) => {
-    console.log('User connected');
+    // console.log('User connected');
 
     // Join room or create a new one
     socket.on('join', (room, username) => {
       socket.join(room);
-      console.log(`User ${username} joined room: ${room}`);
+    //   console.log(`User ${username} joined room: ${room}`);
       io.to(room).emit('user joined', username); // Broadcast the new user's username to all users in the room
       // Load previous messages for the given room
       ChatMessage.find({ room }).limit(50).sort({ timestamp: 1 }).then(messages => {
@@ -36,7 +36,7 @@ module.exports = function(server) {
     // Leave room
     socket.on('leave', (room) => {
       socket.leave(room);
-      console.log(`User left room: ${room}`);
+    //   console.log(`User left room: ${room}`);
     });
 
     // Listen for new messages
@@ -61,7 +61,7 @@ module.exports = function(server) {
 
     // Handle disconnection
     socket.on('disconnect', () => {
-      console.log('User disconnected');
+    //   console.log('User disconnected');
       // Emit event when user leaves the room
       if (socket.room && socket.username) {
         io.to(socket.room).emit('user left', socket.username);

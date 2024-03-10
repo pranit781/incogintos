@@ -42,6 +42,7 @@ body {
   
   #messages li {
     margin-bottom: 10px;
+    overflow-wrap: break-word;
   }
   
   #form {
