@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const http = require('http');
-const path = require('path');
+const path = require('path');  
+const chatApp = require('./routes/chatRoute');
 
 const handleRemotePairing = require('./routes/remotePair');
 
@@ -61,7 +62,7 @@ app.use('/codeSnippets', codeSnippetRoutes);
 app.use('/data', dataRoutes);
 app.use('/compile', require('./routes/compile'));
 
-
+chatApp(server);
 
 
 server.listen(PORT, () => {

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="chat-container">
+      <div id="user-list" ></div>
+
+      <div id="typing-indicator"></div>
+
+      <div id="chat-messages">
+        <ul id="messages">
+
+           
+        </ul>
+        
+      </div>
+      <form id="form" action="">
+        <input id="input" autocomplete="off" /><button>Send</button>
+      </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var typing = false;
+      var timeout = undefined;
+
+
+      
+
+      var socket = io();
+      var username = prompt("Enter your username:");
+      var room = prompt("Enter room name:");
+ 
+      // Join the specified room and pass the username
+      socket.emit("join", room, username);
+
+      // Add event listener to handle loading previous messages
+      socket.on("load messages", function (messages) {
+        messages.forEach(function (msg) {
+          addMessage(msg.message);
+        });
+      });
+
+      // Add event listener to handle user joined event
+      socket.on("user joined", function (username) {
+        addUser(username);
+      });
+
+      // Add event listener to handle user left event
+      socket.on("user left", function (username) {
+        removeUser(username);
+      });
+
+      // Add new message to the chat
+      socket.on("chat message", function (msg) {
+        addMessage(msg);
+      });
+
+      document
+        .getElementById("input")
+        .addEventListener("keypress", function () {
+          if (!typing) {
+            typing = true;
+            socket.emit("typing", room, username);
+          }
+          // Clear timeout and reset it
+          clearTimeout(timeout);
+          timeout = setTimeout(function () {
+            typing = false;
+            // Emit stop typing event to the server
+            socket.emit("stop typing", room, username);
+          }, 2000); // Adjust the time as needed
+        });
+
+      // Handle typing status events
+      socket.on("user typing", function (username) {
+        document.getElementById(
+          "typing-indicator"
+        ).innerHTML = `${username} is typing...`;
+      });
+
+      socket.on("user stop typing", function (username) {
+        document.getElementById("typing-indicator").innerHTML = "";
+      });
+
+      // Handle form submission
+      document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var messageInput = document.getElementById("input");
+        var message = messageInput.value.trim();
+        if (message) {
+          socket.emit("chat message", message, username, room);
+          messageInput.value = "";
+        }
+      });
+
+      // Add message to the UI
+      function addMessage(msg) {
+        var li = document.createElement("li");
+        li.textContent = msg;
+        document.getElementById("messages").appendChild(li);
+   
+      }
+
+      // Add user to the user list
+      function addUser(username) {
+        var userDiv = document.createElement("div");
+        userDiv.textContent = username;
+        userDiv.classList.add("user-item"); // Add class name
+        document.getElementById("user-list").appendChild(userDiv);
+      }
+
+      // Remove user from the user list
+      function removeUser(username) {
+        var userList = document.getElementById("user-list");
+        for (var i = 0; i < userList.children.length; i++) {
+          if (userList.children[i].textContent === username) {
+            userList.removeChild(userList.children[i]);
+            break;
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
