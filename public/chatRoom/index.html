@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat App</title>
     <link rel="stylesheet" href="style.css" />
+     
   </head>
   <body>
     <div id="chat-container">
@@ -35,7 +36,7 @@
       </script>
 
       <form id="form" action="">
-        <input id="input" autocomplete="off" /><button>Send</button>
+        <input id="input" autocomplete="off" autofocus /><button>Send</button>
       </form>
     </div>
 
@@ -71,7 +72,16 @@
       socket.on("chat message", function (data) {
         var msg = data.message;
         var sender = data.username;
-        addMessage(msg, sender);
+        var time = data.timestamp;
+
+        const date = new Date(time);
+
+const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+
+const formattedTimestamp = `${formattedDate} || ${formattedTime}`;
+console.log(formattedTimestamp);
+        addMessage(msg, sender,  formattedTimestamp);
         scrollToLastMessage();
       });
       document.getElementById("input").addEventListener("input", function () {
@@ -107,16 +117,19 @@
         }
       });
 
-      function addMessage(msg, sender) {
+      function addMessage(msg, sender, formattedTimestamp) {
         var li = document.createElement("li");
         var senderPara = document.createElement("span");
         var messagePara = document.createElement("p");
+        var times = document.createElement("span")
 
         senderPara.textContent = sender;
         messagePara.textContent = msg;
+        times.textContent = formattedTimestamp;
 
         li.appendChild(senderPara);
         li.appendChild(messagePara);
+        li.appendChild(times);
         if (sender === username) {
           li.classList.add("sent");
         } else {
@@ -142,6 +155,20 @@
           }
         }
       }
+      document.getElementById("input").addEventListener("paste", function (event) {
+    var clipboardData = event.clipboardData || window.clipboardData;
+    var pastedText = clipboardData.getData("text/plain");
+    var inputField = document.getElementById("input");
+    var currentPosition = inputField.selectionStart;
+    var currentValue = inputField.value;
+    var newValue =
+      currentValue.substring(0, currentPosition) +
+      pastedText +
+      currentValue.substring(inputField.selectionEnd);
+    inputField.value = newValue;
+});
+
+       
     </script>
   </body>
 </html>

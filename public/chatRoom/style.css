@@ -34,9 +34,9 @@ body {
 
 .sd {
   width: 50px;
-  bottom: 9rem;
+  bottom: 3rem;
   position: fixed;
-  right: 2rem;
+  right: 0rem;
 }
 
 .messages {
@@ -79,6 +79,9 @@ body {
   border: 1px solid green;
   border-radius: 12px;
 
+}
+li p{
+  text-align: start;
 }
 
 #form {
