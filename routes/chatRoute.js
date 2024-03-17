@@ -57,17 +57,17 @@ module.exports = function(server) {
     socket.on('clear chat', async (room) => {
       try {
         // Retrieve messages from the database
-        const messages = await ChatMessage.find({ room });
+//         const messages = await ChatMessage.find({ room });
 
-        // Save messages to a JSON file
-        const filePath = `backup/chat_${room}.json`;
-fs.writeFile(filePath, JSON.stringify(messages), (err) => {
-  if (err) {
-    console.error("Error saving chat messages to JSON file:", err);
-    return;
-  }
-  console.log(`Chat messages for room ${room} saved to JSON file: ${filePath}`);
-});
+//         // Save messages to a JSON file
+//         const filePath = `backup/chat_${room}.json`;
+// fs.writeFile(filePath, JSON.stringify(messages), (err) => {
+//   if (err) {
+//     console.error("Error saving chat messages to JSON file:", err);
+//     return;
+//   }
+//   console.log(`Chat messages for room ${room} saved to JSON file: ${filePath}`);
+// });
 
         // Delete messages from the database
         await ChatMessage.deleteMany({ room });
