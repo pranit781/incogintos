@@ -5,27 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat App</title>
     <link rel="stylesheet" href="style.css" />
-     
   </head>
   <body>
     <div id="chat-container">
-      <div id="user-list"></div>
-
+      <div style="display: flex; justify-content: space-between;"><div id="user-list"></div>
+      <button class="deletChat" onclick="confirmClearChat()">Clear Room</button></div>
       <div id="chat-messages">
         <div class="messages" id="messageList">
           <ul id="messages"></ul>
 
           <div>
-            <p style="margin: 20px;"><br></p>
+            <p style="margin: 20px"><br /></p>
           </div>
         </div>
       </div>
       <div id="scrollButton" onclick="scrollToLastMessage()">
+         
         <div id="typing-indicator"></div>
         <img class="sd" src="scroll.gif" alt="" />
       </div>
 
       <script>
+        function confirmClearChat() {
+  const confirmation = confirm("Are you sure you want to clear the chat?");
+  if (confirmation) {
+    clearChat();
+
+  }
+}
         function scrollToLastMessage() {
           var lastMessage = document.querySelector(
             "#messageList > div:last-child > p"
@@ -57,17 +64,41 @@
           var sender = data.username;
           var time = data.timestamp;
 
-const date = new Date(time);
+          const date = new Date(time);
 
-const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+          const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+          const formattedTime = `${date
+            .getHours()
+            .toString()
+            .padStart(2, "0")}:${date
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}:${date
+            .getSeconds()
+            .toString()
+            .padStart(2, "0")}`;
 
-const formattedTimestamp = `${formattedDate} || ${formattedTime}`;
-console.log(formattedTimestamp);
-addMessage(msg, sender,  formattedTimestamp);
+          const formattedTimestamp = `${formattedDate} || ${formattedTime}`;
+          console.log(formattedTimestamp);
+          addMessage(msg, sender, formattedTimestamp);
         });
         scrollToLastMessage();
       });
+
+      socket.on('joined users', (users) => {
+  const userListElement = document.getElementById('user-list');
+  userListElement.innerHTML = ''; // Clear previous user list
+  
+  users.forEach(user => {
+    const userDiv = document.createElement('div');
+    userDiv.textContent = user;
+    userDiv.classList.add('user-item');
+    userListElement.appendChild(userDiv);
+  });
+});
+
 
       socket.on("user joined", function (username) {
         addUser(username);
@@ -85,12 +116,20 @@ addMessage(msg, sender,  formattedTimestamp);
 
         const date = new Date(time);
 
-const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+        const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+          .toString()
+          .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+        const formattedTime = `${date
+          .getHours()
+          .toString()
+          .padStart(2, "0")}:${date
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`;
 
-const formattedTimestamp = `${formattedDate} || ${formattedTime}`;
-console.log(formattedTimestamp);
-        addMessage(msg, sender,  formattedTimestamp);
+        const formattedTimestamp = `${formattedDate} || ${formattedTime}`;
+        console.log(formattedTimestamp);
+        addMessage(msg, sender, formattedTimestamp);
         scrollToLastMessage();
       });
       document.getElementById("input").addEventListener("input", function () {
@@ -130,7 +169,7 @@ console.log(formattedTimestamp);
         var li = document.createElement("li");
         var senderPara = document.createElement("span");
         var messagePara = document.createElement("p");
-        var times = document.createElement("small")
+        var times = document.createElement("small");
 
         senderPara.textContent = sender;
         messagePara.textContent = msg;
@@ -155,6 +194,18 @@ console.log(formattedTimestamp);
         document.getElementById("user-list").appendChild(userDiv);
       }
 
+      function clearChat() {
+  socket.emit('clear chat', room);  
+  window.location.href = "/";
+}
+ 
+socket.on('chat cleared', () => {
+  // Clear chat history on the client-side
+  // For example, if you have a div with id 'chat-messages' containing chat messages
+  const chatMessages = document.getElementById('chat-messages');
+  chatMessages.innerHTML = ''; // Clear chat history
+});
+
       function removeUser(username) {
         var userList = document.getElementById("user-list");
         for (var i = 0; i < userList.children.length; i++) {
@@ -164,20 +215,9 @@ console.log(formattedTimestamp);
           }
         }
       }
-      document.getElementById("input").addEventListener("paste", function (event) {
-    var clipboardData = event.clipboardData || window.clipboardData;
-    var pastedText = clipboardData.getData("text/plain");
-    var inputField = document.getElementById("input");
-    var currentPosition = inputField.selectionStart;
-    var currentValue = inputField.value;
-    var newValue =
-      currentValue.substring(0, currentPosition) +
-      pastedText +
-      currentValue.substring(inputField.selectionEnd);
-    inputField.value = newValue;
-});
-
-       
+      function leaveRoom() {
+  socket.emit('leave', room, username); // Emit leave event with room and username
+}
     </script>
   </body>
 </html>

@@ -104,7 +104,7 @@ small{
 
 #user-list {
   display: flex;
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   width: 100%;
 }
@@ -148,5 +148,8 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #b5bec7;
+}
+.deletChat{
+  background-color: red;
 }

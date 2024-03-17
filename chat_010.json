@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "65f7638f26683006fdfb2bbf",
+    "room": "010",
+    "__v": 0,
+    "timestamp": "2024-03-17T21:41:34.994Z",
+    "users": ["Mahesh", "Priti", "preetam"]
+  },
+  {
+    "_id": "65f76398e3313a0ea291747a",
+    "message": "hi'",
+    "username": "Mahesh",
+    "room": "010",
+    "timestamp": "2024-03-17T21:41:44.986Z",
+    "users": [],
+    "__v": 0
+  }
+]
