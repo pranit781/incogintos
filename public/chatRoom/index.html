@@ -10,8 +10,6 @@
     <div id="chat-container">
       <div id="user-list"></div>
 
-      <div id="typing-indicator"></div>
-
       <div id="chat-messages">
         <div class="messages" id="messageList">
           <ul id="messages"></ul>
@@ -22,17 +20,16 @@
         </div>
       </div>
       <div id="scrollButton" onclick="scrollToLastMessage()">
+        <div id="typing-indicator"></div>
         <img class="sd" src="scroll.gif" alt="" />
       </div>
 
       <script>
         function scrollToLastMessage() {
-          // Get the last message element
           var lastMessage = document.querySelector(
             "#messageList > div:last-child > p"
           );
 
-          // Scroll to the last message
           lastMessage.scrollIntoView({ behavior: "smooth", block: "end" });
         }
       </script>
@@ -51,10 +48,8 @@
       var username = prompt("Enter your username:");
       var room = prompt("Enter room name:");
 
-      // Join the specified room and pass the username
       socket.emit("join", room, username);
 
-      // Add event listener to handle loading previous messages
       socket.on("load messages", function (messages) {
         messages.forEach(function (data) {
           var msg = data.message;
@@ -64,32 +59,14 @@
         scrollToLastMessage();
       });
 
-      // Add event listener to handle user joined event
       socket.on("user joined", function (username) {
         addUser(username);
       });
 
-      // Add event listener to handle user left event
       socket.on("user left", function (username) {
         removeUser(username);
       });
-      // var sender = "";
-      // // Add new message to the chat
-      // socket.on("chat message", function (msg) {
-      //   sender = msg.username;
-      //   addMessage(msg, sender);
-      //   scrollToLastMessage();
-      // });
-
-      var sender = ""; // Global variable to store sender value
-
-      // // Add new message to the chat
-      // socket.on("chat message", function (data) {
-      //     var msg = data.message;
-      //     sender = data.sender; // Store sender value
-      //     addMessage(msg, sender);
-      //     scrollToLastMessage();
-      // });
+      var sender = "";
 
       socket.on("chat message", function (data) {
         var msg = data.message;
@@ -98,29 +75,28 @@
         scrollToLastMessage();
       });
       document.getElementById("input").addEventListener("input", function () {
-    if (!typing) {
-        typing = true;
-        socket.emit("typing", room, username);
-    }
-    // Clear timeout and reset it
-    clearTimeout(timeout);
-    timeout = setTimeout(function () {
-        typing = false;
-        // Emit stop typing event to the server
-        socket.emit("stop typing", room, username);
-    }, 2000); // Adjust the time as needed
-});
+        if (!typing) {
+          typing = true;
+          socket.emit("typing", room, username);
+        }
 
-// Handle typing status events
-socket.on("user typing", function (username) {
-    document.getElementById("typing-indicator").innerHTML = `${username} is typing...`;
-});
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+          typing = false;
 
-socket.on("user stop typing", function (username) {
-    document.getElementById("typing-indicator").innerHTML = "";
-});
+          socket.emit("stop typing", room, username);
+        }, 3000);
+      });
+      socket.on("user typing", function (username) {
+        document.getElementById(
+          "typing-indicator"
+        ).innerHTML = `${username} is typing...`;
+      });
 
-      // Handle form submission
+      socket.on("user stop typing", function (username) {
+        document.getElementById("typing-indicator").innerHTML = "";
+      });
+
       document.getElementById("form").addEventListener("submit", function (e) {
         e.preventDefault();
         var messageInput = document.getElementById("input");
@@ -131,46 +107,32 @@ socket.on("user stop typing", function (username) {
         }
       });
 
-      // // Add message to the UI
-      // function addMessage(msg, sender) {
-      //   var li = document.createElement("li");
-      //   var className =
-      //     username === sender ? "sent" : "received";
-      //   li.textContent = msg;
-      //   li.classList.add(className);
-      //   document.getElementById("messages").appendChild(li);
-      // }
-
       function addMessage(msg, sender) {
-        var li = document.createElement("li"); // Create a new list item element
-        var senderPara = document.createElement("span"); // Create a paragraph element for sender name
-        var messagePara = document.createElement("p"); // Create a paragraph element for message content
+        var li = document.createElement("li");
+        var senderPara = document.createElement("span");
+        var messagePara = document.createElement("p");
 
-        senderPara.textContent = sender; // Set the text content of sender paragraph to the sender's name
-        messagePara.textContent = msg; // Set the text content of message paragraph to the message text
+        senderPara.textContent = sender;
+        messagePara.textContent = msg;
 
-        li.appendChild(senderPara); // Append sender paragraph to the list item
-        li.appendChild(messagePara); // Append message paragraph to the list item
-
-        // Add classes based on sender and receiver
+        li.appendChild(senderPara);
+        li.appendChild(messagePara);
         if (sender === username) {
           li.classList.add("sent");
         } else {
           li.classList.add("received");
         }
 
-        document.getElementById("messages").appendChild(li); // Append the list item to the messages container
+        document.getElementById("messages").appendChild(li);
       }
 
-      // Add user to the user list
       function addUser(username) {
         var userDiv = document.createElement("div");
         userDiv.textContent = username;
-        userDiv.classList.add("user-item"); // Add class name
+        userDiv.classList.add("user-item");
         document.getElementById("user-list").appendChild(userDiv);
       }
 
-      // Remove user from the user list
       function removeUser(username) {
         var userList = document.getElementById("user-list");
         for (var i = 0; i < userList.children.length; i++) {

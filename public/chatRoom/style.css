@@ -1,130 +1,145 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-  }
-  
-  #chat-container { 
-    margin: 0px auto;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
-  
-  #user-list {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 10px;
-    overflow-y: auto;
-    max-height: 200px;
-  }
-  
-  #typing-indicator {
-    color: #6c757d;
-  }
-  
-  #chat-messages {
-    margin-top: 20px;
-    border-top: 1px solid #ccc;
-    padding-top: 20px;
-  }
-  .sd{
-    width: 50px;
-    bottom: 9rem;
-    position: fixed;
-    right: 2rem;
-  }
-.messages{
-  
-  height: 300px; /* Set a fixed height or max-height */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+#chat-container {
+  margin: 0px auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+#user-list {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+#typing-indicator {
+  color: #6c757d;
+  position: fixed;
+}
+
+#chat-messages {
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.sd {
+  width: 50px;
+  bottom: 9rem;
+  position: fixed;
+  right: 2rem;
+}
+
+.messages {
+
+  height: 300px;
+  /* Set a fixed height or max-height */
   overflow-y: auto;
 }
-  #messages {
-     
-    list-style-type: none;
+
+#messages {
+
+  list-style-type: none;
   padding: 0;
-  }
-  
-  #messages li {
-    margin-bottom: 10px;
-    overflow-wrap: break-word;
-   
-    padding: 13px;
-  
-  }
-
-  
-  .sent{
-    color: black;
-    padding-right: 15px;
-    text-align: right; 
-    
-    margin-left: 15%;
-    border: 1px solid red;
-    border-radius: 12px;
-   }
-  .received{
-    color: black;
-    padding-left: 15px;
-    
-    margin-right: 15%;
-    border: 1px solid green;
-    border-radius: 12px;
-
-   }
-  
-  #form {
-    margin-top: 20px;
-    display: flex;
-  }
-  
-  #input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-  }
-  #chat-messages{
-    display: block;
-  }
-  #user-list{
-    display: flex;
-  }
-.user-item{
-    margin-left: 10px;
-    margin-left: 10px;
 }
-  .messages{
-    height: 64vh;
-    overflow: scroll;
 
-  }
-  .messages::-webkit-scrollbar {
-    width: 0;
+#messages li {
+  margin-bottom: 10px;
+  overflow-wrap: break-word;
+
+  padding: 13px;
+
 }
-.messages {
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none; /* For Internet Explorer and Edge */
-}
-li span{
+
+
+.sent {
   color: black;
-    font-weight: 700;
+  padding-right: 15px;
+  text-align: right;
+
+  margin-left: 15%;
+  border: 1px solid red;
+  border-radius: 12px;
 }
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+
+.received {
+  color: black;
+  padding-left: 15px;
+
+  margin-right: 15%;
+  border: 1px solid green;
+  border-radius: 12px;
+
+}
+
+#form {
+  margin-top: 20px;
+  display: flex;
+}
+
+#input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+#chat-messages {
+  display: block;
+}
+
+#user-list {
+  display: flex;
+}
+
+.user-item {
+  margin-left: 10px;
+  margin-left: 10px;
+}
+
+.messages {
+  height: 64vh;
+  overflow: scroll;
+
+}
+
+.messages::-webkit-scrollbar {
+  width: 0;
+}
+
+.messages {
+  scrollbar-width: none;
+  /* For Firefox */
+  -ms-overflow-style: none;
+  /* For Internet Explorer and Edge */
+}
+
+li span {
+  color: black;
+  font-weight: 700;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
