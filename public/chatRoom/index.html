@@ -55,7 +55,16 @@
         messages.forEach(function (data) {
           var msg = data.message;
           var sender = data.username;
-          addMessage(msg, sender);
+          var time = data.timestamp;
+
+const date = new Date(time);
+
+const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+
+const formattedTimestamp = `${formattedDate} || ${formattedTime}`;
+console.log(formattedTimestamp);
+addMessage(msg, sender,  formattedTimestamp);
         });
         scrollToLastMessage();
       });
@@ -121,7 +130,7 @@ console.log(formattedTimestamp);
         var li = document.createElement("li");
         var senderPara = document.createElement("span");
         var messagePara = document.createElement("p");
-        var times = document.createElement("span")
+        var times = document.createElement("small")
 
         senderPara.textContent = sender;
         messagePara.textContent = msg;
