@@ -15,7 +15,7 @@
           <ul id="messages"></ul>
 
           <div>
-            <p></p>
+            <p style="margin: 20px;"><br></p>
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@
           typing = false;
 
           socket.emit("stop typing", room, username);
-        }, 3000);
+        }, 2000);
       });
       socket.on("user typing", function (username) {
         document.getElementById(

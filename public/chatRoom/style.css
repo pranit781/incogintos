@@ -84,6 +84,9 @@ body {
 #form {
   margin-top: 20px;
   display: flex;
+  position: fixed;
+  bottom: 2px;
+  width: 95%;
 }
 
 #input {
@@ -100,6 +103,9 @@ body {
 
 #user-list {
   display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .user-item {
@@ -108,7 +114,7 @@ body {
 }
 
 .messages {
-  height: 64vh;
+  height: auto;
   overflow: scroll;
 
 }
