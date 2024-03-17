@@ -8,17 +8,35 @@
   </head>
   <body>
     <div id="chat-container">
-      <div id="user-list" ></div>
+      <div id="user-list"></div>
 
       <div id="typing-indicator"></div>
 
       <div id="chat-messages">
-        <ul id="messages">
+        <div class="messages" id="messageList">
+          <ul id="messages"></ul>
 
-           
-        </ul>
-        
+          <div>
+            <p></p>
+          </div>
+        </div>
       </div>
+      <div id="scrollButton" onclick="scrollToLastMessage()">
+        <img class="sd" src="scroll.gif" alt="" />
+      </div>
+
+      <script>
+        function scrollToLastMessage() {
+          // Get the last message element
+          var lastMessage = document.querySelector(
+            "#messageList > div:last-child > p"
+          );
+
+          // Scroll to the last message
+          lastMessage.scrollIntoView({ behavior: "smooth", block: "end" });
+        }
+      </script>
+
       <form id="form" action="">
         <input id="input" autocomplete="off" /><button>Send</button>
       </form>
@@ -29,21 +47,21 @@
       var typing = false;
       var timeout = undefined;
 
-
-      
-
       var socket = io();
       var username = prompt("Enter your username:");
       var room = prompt("Enter room name:");
- 
+
       // Join the specified room and pass the username
       socket.emit("join", room, username);
 
       // Add event listener to handle loading previous messages
       socket.on("load messages", function (messages) {
-        messages.forEach(function (msg) {
-          addMessage(msg.message);
+        messages.forEach(function (data) {
+          var msg = data.message;
+          var sender = data.username;
+          addMessage(msg, sender);
         });
+        scrollToLastMessage();
       });
 
       // Add event listener to handle user joined event
@@ -55,38 +73,52 @@
       socket.on("user left", function (username) {
         removeUser(username);
       });
+      // var sender = "";
+      // // Add new message to the chat
+      // socket.on("chat message", function (msg) {
+      //   sender = msg.username;
+      //   addMessage(msg, sender);
+      //   scrollToLastMessage();
+      // });
 
-      // Add new message to the chat
-      socket.on("chat message", function (msg) {
-        addMessage(msg);
+      var sender = ""; // Global variable to store sender value
+
+      // // Add new message to the chat
+      // socket.on("chat message", function (data) {
+      //     var msg = data.message;
+      //     sender = data.sender; // Store sender value
+      //     addMessage(msg, sender);
+      //     scrollToLastMessage();
+      // });
+
+      socket.on("chat message", function (data) {
+        var msg = data.message;
+        var sender = data.username;
+        addMessage(msg, sender);
+        scrollToLastMessage();
       });
+      document.getElementById("input").addEventListener("input", function () {
+    if (!typing) {
+        typing = true;
+        socket.emit("typing", room, username);
+    }
+    // Clear timeout and reset it
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+        typing = false;
+        // Emit stop typing event to the server
+        socket.emit("stop typing", room, username);
+    }, 2000); // Adjust the time as needed
+});
 
-      document
-        .getElementById("input")
-        .addEventListener("keypress", function () {
-          if (!typing) {
-            typing = true;
-            socket.emit("typing", room, username);
-          }
-          // Clear timeout and reset it
-          clearTimeout(timeout);
-          timeout = setTimeout(function () {
-            typing = false;
-            // Emit stop typing event to the server
-            socket.emit("stop typing", room, username);
-          }, 2000); // Adjust the time as needed
-        });
+// Handle typing status events
+socket.on("user typing", function (username) {
+    document.getElementById("typing-indicator").innerHTML = `${username} is typing...`;
+});
 
-      // Handle typing status events
-      socket.on("user typing", function (username) {
-        document.getElementById(
-          "typing-indicator"
-        ).innerHTML = `${username} is typing...`;
-      });
-
-      socket.on("user stop typing", function (username) {
-        document.getElementById("typing-indicator").innerHTML = "";
-      });
+socket.on("user stop typing", function (username) {
+    document.getElementById("typing-indicator").innerHTML = "";
+});
 
       // Handle form submission
       document.getElementById("form").addEventListener("submit", function (e) {
@@ -99,12 +131,35 @@
         }
       });
 
-      // Add message to the UI
-      function addMessage(msg) {
-        var li = document.createElement("li");
-        li.textContent = msg;
-        document.getElementById("messages").appendChild(li);
-   
+      // // Add message to the UI
+      // function addMessage(msg, sender) {
+      //   var li = document.createElement("li");
+      //   var className =
+      //     username === sender ? "sent" : "received";
+      //   li.textContent = msg;
+      //   li.classList.add(className);
+      //   document.getElementById("messages").appendChild(li);
+      // }
+
+      function addMessage(msg, sender) {
+        var li = document.createElement("li"); // Create a new list item element
+        var senderPara = document.createElement("span"); // Create a paragraph element for sender name
+        var messagePara = document.createElement("p"); // Create a paragraph element for message content
+
+        senderPara.textContent = sender; // Set the text content of sender paragraph to the sender's name
+        messagePara.textContent = msg; // Set the text content of message paragraph to the message text
+
+        li.appendChild(senderPara); // Append sender paragraph to the list item
+        li.appendChild(messagePara); // Append message paragraph to the list item
+
+        // Add classes based on sender and receiver
+        if (sender === username) {
+          li.classList.add("sent");
+        } else {
+          li.classList.add("received");
+        }
+
+        document.getElementById("messages").appendChild(li); // Append the list item to the messages container
       }
 
       // Add user to the user list
