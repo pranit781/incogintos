@@ -1,1 +1,1 @@
-# incogintos cOMMUNITY
+# incogintos Community
