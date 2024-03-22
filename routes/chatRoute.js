@@ -68,8 +68,7 @@ module.exports = function(server) {
 //   }
 //   console.log(`Chat messages for room ${room} saved to JSON file: ${filePath}`);
 // });
-
-        // Delete messages from the database
+ 
         await ChatMessage.deleteMany({ room });
 
         // Emit a 'chat cleared' event to all clients in the room
