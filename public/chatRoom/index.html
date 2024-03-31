@@ -8,8 +8,12 @@
   </head>
   <body>
     <div id="chat-container">
-      <div style="display: flex; justify-content: space-between;"><div id="user-list"></div>
-      <button class="deletChat" onclick="confirmClearChat()">Clear Room</button></div>
+      <div style="display: flex; justify-content: space-between">
+        <div id="user-list"></div>
+        <button class="deletChat" onclick="confirmClearChat()">
+          Clear Room
+        </button>
+      </div>
       <div id="chat-messages">
         <div class="messages" id="messageList">
           <ul id="messages"></ul>
@@ -20,19 +24,19 @@
         </div>
       </div>
       <div id="scrollButton" onclick="scrollToLastMessage()">
-         
         <div id="typing-indicator"></div>
         <img class="sd" src="scroll.gif" alt="" />
       </div>
 
       <script>
         function confirmClearChat() {
-  const confirmation = confirm("Are you sure you want to clear the chat?");
-  if (confirmation) {
-    clearChat();
-
-  }
-}
+          const confirmation = confirm(
+            "Are you sure you want to clear the chat?"
+          );
+          if (confirmation) {
+            clearChat();
+          }
+        }
         function scrollToLastMessage() {
           var lastMessage = document.querySelector(
             "#messageList > div:last-child > p"
@@ -87,18 +91,17 @@
         scrollToLastMessage();
       });
 
-      socket.on('joined users', (users) => {
-  const userListElement = document.getElementById('user-list');
-  userListElement.innerHTML = ''; // Clear previous user list
-  
-  users.forEach(user => {
-    const userDiv = document.createElement('div');
-    userDiv.textContent = user;
-    userDiv.classList.add('user-item');
-    userListElement.appendChild(userDiv);
-  });
-});
+      socket.on("joined users", (users) => {
+        const userListElement = document.getElementById("user-list");
+        userListElement.innerHTML = ""; // Clear previous user list
 
+        users.forEach((user) => {
+          const userDiv = document.createElement("div");
+          userDiv.textContent = user;
+          userDiv.classList.add("user-item");
+          userListElement.appendChild(userDiv);
+        });
+      });
 
       socket.on("user joined", function (username) {
         addUser(username);
@@ -195,16 +198,16 @@
       }
 
       function clearChat() {
-  socket.emit('clear chat', room);  
-  window.location.href = "/";
-}
- 
-socket.on('chat cleared', () => {
-  // Clear chat history on the client-side
-  // For example, if you have a div with id 'chat-messages' containing chat messages
-  const chatMessages = document.getElementById('chat-messages');
-  chatMessages.innerHTML = ''; // Clear chat history
-});
+        socket.emit("clear chat", room);
+        window.location.href = "/";
+      }
+
+      socket.on("chat cleared", () => {
+        // Clear chat history on the client-side
+        // For example, if you have a div with id 'chat-messages' containing chat messages
+        const chatMessages = document.getElementById("chat-messages");
+        chatMessages.innerHTML = ""; // Clear chat history
+      });
 
       function removeUser(username) {
         var userList = document.getElementById("user-list");
@@ -216,8 +219,8 @@ socket.on('chat cleared', () => {
         }
       }
       function leaveRoom() {
-  socket.emit('leave', room, username); // Emit leave event with room and username
-}
+        socket.emit("leave", room, username); // Emit leave event with room and username
+      }
     </script>
   </body>
 </html>
