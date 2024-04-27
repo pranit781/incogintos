@@ -55,41 +55,50 @@
     <script>
       var typing = false;
       var timeout = undefined;
+var socket = io();
+var username = prompt("Enter your username:");
+var room = prompt("Enter room name (a 5-digit numerical code):");
 
-      var socket = io();
-      var username = prompt("Enter your username:");
-      var room = prompt("Enter room name:");
+// Validate room name
+while (!isValidRoom(room)) {
+  room = prompt("Please enter a 5-digit numerical code for the room name:");
+}
 
-      socket.emit("join", room, username);
+socket.emit("join", room, username);
 
-      socket.on("load messages", function (messages) {
-        messages.forEach(function (data) {
-          var msg = data.message;
-          var sender = data.username;
-          var time = data.timestamp;
+socket.on("load messages", function (messages) {
+  messages.forEach(function (data) {
+    var msg = data.message;
+    var sender = data.username;
+    var time = data.timestamp;
 
-          const date = new Date(time);
+    const date = new Date(time);
 
-          const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
-            .toString()
-            .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
-          const formattedTime = `${date
-            .getHours()
-            .toString()
-            .padStart(2, "0")}:${date
-            .getMinutes()
-            .toString()
-            .padStart(2, "0")}:${date
-            .getSeconds()
-            .toString()
-            .padStart(2, "0")}`;
+    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+    const formattedTime = `${date
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${date
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}:${date
+      .getSeconds()
+      .toString()
+      .padStart(2, "0")}`;
 
-          const formattedTimestamp = `${formattedDate} || ${formattedTime}`;
-          console.log(formattedTimestamp);
-          addMessage(msg, sender, formattedTimestamp);
-        });
-        scrollToLastMessage();
-      });
+    const formattedTimestamp = `${formattedDate} || ${formattedTime}`;
+    console.log(formattedTimestamp);
+    addMessage(msg, sender, formattedTimestamp);
+  });
+  scrollToLastMessage();
+});
+
+function isValidRoom(room) {
+  // Check if the room is a 5-digit numerical code
+  return /^\d{5}$/.test(room);
+}
 
       socket.on("joined users", (users) => {
         const userListElement = document.getElementById("user-list");
