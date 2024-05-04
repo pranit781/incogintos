@@ -17,8 +17,7 @@ const codeSnippetSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        default: function() {
-            // Generate 8-digit random number
+        default: function() { 
             return Math.floor(1000 + Math.random() * 9000).toString();
 
         }
