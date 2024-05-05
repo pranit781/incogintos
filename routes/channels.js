@@ -3,8 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const Channel = require('../models/Channel');
-
-// Define channel routes
+ 
 router.get('/',async (req, res) => {
     try {
         const channels = await Channel.find();
