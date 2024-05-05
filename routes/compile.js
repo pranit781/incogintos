@@ -4,8 +4,7 @@ const compiler = require("compilex");
 
 const router = express.Router();
 router.use(bodyParser());
-
-// Initialize compiler
+ 
 const option = { stats: true };
 compiler.init(option);
 
