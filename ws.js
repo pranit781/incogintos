@@ -1,10 +1,8 @@
-// Import the WebSocket module
+ 
 const WebSocket = require('ws');
-
-// Create a WebSocket server 
+ 
 const wss = new WebSocket.Server({ port: 8080 });
-
-// Store connected clients
+ 
 const clients = {};
  
 function broadcast(channelId, message) {
